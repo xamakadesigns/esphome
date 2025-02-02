@@ -85,7 +85,7 @@ void ESPADFSpeaker::player_task(void *params) {
       .type = AUDIO_STREAM_WRITER,
       .i2s_config = i2s_config,
       .i2s_port = I2S_NUM_0,
-      .use_alc = false,
+      .use_alc = true,
       .volume = 0,
       .out_rb_size = I2S_STREAM_RINGBUFFER_SIZE,
       .task_stack = I2S_STREAM_TASK_STACK,
@@ -168,6 +168,11 @@ void ESPADFSpeaker::player_task(void *params) {
     size_t current = 0;
     if (remaining > 0)
       last_received = millis();
+
+    // https://esp32.com/viewtopic.php?t=37459
+    int volume = 100;
+    float vol = -64.0 + 0.64 * volume; // volume is an int from 0 to 100
+    i2s_alc_volume_set(i2s_stream_writer, (int)vol);
 
     while (remaining > 0) {
       int bytes_written = raw_stream_write(raw_write, (char *) data_event.data + current, remaining);

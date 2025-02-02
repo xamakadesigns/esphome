@@ -246,10 +246,10 @@ size_t ESPADFMicrophone::read(int16_t *buf, size_t len) {
 
   if (bytes_read == 0) {
     // No data in buffers to read.
-    this->status_set_warning();
+    // this->status_set_warning(); // spams the log
     return 0;
   }
-  this->status_clear_warning();
+  //this->status_clear_warning(); // spams the log
 
   return bytes_read;
 }

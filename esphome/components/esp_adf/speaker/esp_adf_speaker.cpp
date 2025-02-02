@@ -171,7 +171,7 @@ void ESPADFSpeaker::player_task(void *params) {
 
     // https://esp32.com/viewtopic.php?t=37459
     int volume = 100;
-    float vol = -64.0 + 0.64 * volume; // volume is an int from 0 to 100
+    float vol = -64.0 + 1.28 * volume; // volume is an int from 0 to 100
     i2s_alc_volume_set(i2s_stream_writer, (int)vol);
 
     while (remaining > 0) {
